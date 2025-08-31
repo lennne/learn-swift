@@ -68,4 +68,17 @@ johnBooking.updatingBooking(name: "Maria")
 print(johnBooking)
 
 
+struct Classroom{
+    var classA: [String]
+    var classB: [String]
+    var countClasses: Int {
+        classA.count + classB.count
+    }
+    init(classA: [String], classB: [String]){
+        self.classA = classA
+        self.classB = classB
+    }
+}
 
+var School = Classroom(classA: ["beta", "gama"],classB: ["dentu", "volta"])
+print(School.countClasses)
