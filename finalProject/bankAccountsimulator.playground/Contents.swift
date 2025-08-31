@@ -21,6 +21,7 @@ import UIKit
 
 class BankSystem {
     var accountType: String = ""
+    var isOpened = true
     
     
     func greetCustomer(){
@@ -84,19 +85,8 @@ class BankSystem {
     
 }
 
-//Now, you will bring your virtual bank system into existence and have the system greet your customer.
-//Create a virtual bank system class instance. Call the welcome customer method.
-let bankInstance = BankSystem()
-bankInstance.greetCustomer()
-//You will start by defining a repeat while loop that generates user input using random numbers
 
-//If the numbers generated are either 1 or 2, the bank account will be created.
-//The loop should repeat itself as long as the accountType variable’s value is equal to an empty string.
-repeat{
-    bankInstance.customerOnboarding()
-    let userInput = Int.random(in: 1...5)
-    bankInstance.makeAccount(numberPadKey: userInput)
-} while bankInstance.accountType == ""
+
 
 struct BankAccount {
     //stored properties
@@ -157,13 +147,44 @@ struct BankAccount {
    
 }
 
+//Now, you will bring your virtual bank system into existence and have the system greet your customer.
+//Create a virtual bank system class instance. Call the welcome customer method.
+let bankInstance = BankSystem()
+bankInstance.greetCustomer()
+//You will start by defining a repeat while loop that generates user input using random numbers
+
+//If the numbers generated are either 1 or 2, the bank account will be created.
+//The loop should repeat itself as long as the accountType variable’s value is equal to an empty string.
+repeat{
+    bankInstance.customerOnboarding()
+    let userInput = Int.random(in: 1...5)
+    bankInstance.makeAccount(numberPadKey: userInput)
+} while bankInstance.accountType == ""
+
 var bankAccount = BankAccount()
-print(bankAccount.debitBalanceInfo)
-bankAccount.debitDeposit(100)
-bankAccount.debitWithdraw(20)
-print(bankAccount.creditBalanceInfo)
-print(bankAccount.debitWithdraw(101))
-print(bankAccount.creditWithdraw(100))
-bankAccount.creditDeposit(50)
-bankAccount.creditDeposit(50)
-bankAccount.creditDeposit(100)
+
+
+repeat{
+    print("What would you like to do?")
+    print("1. Check bank account")
+    print("2. Withdraw Money")
+    print("3. Deposit Money")
+    print("4. Close the system")
+    
+    let option = Int.random(in: 1...5)
+    print("The selected option is \(option)")
+    
+    //Create a switch statement
+    switch option {
+    case 1:
+        bankInstance.checkBalance(bankAccount: bankAccount)
+    case 2:
+        bankInstance.moneyTransfer("withdraw", 100, bankAccount: &bankAccount)
+    case 3:
+        bankInstance.moneyTransfer("deposit", 100, bankAccount: &bankAccount)
+    case 4:
+        bankInstance.isOpened = false
+        print("The System is closed")
+    default: break
+    }
+} while bankInstance.isOpened
