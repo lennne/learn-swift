@@ -68,3 +68,71 @@ repeat{
     let userInput = Int.random(in: 1...5)
     bankInstance.makeAccount(numberPadKey: userInput)
 } while bankInstance.accountType == ""
+
+struct BankAccount {
+    //stored properties
+    var debitBalance: Int = 0
+    var creditBalance: Int = 0
+    let creditLimit: Int = 100
+    
+    //computed properties
+    var debitBalanceInfo: String {
+        "Debit Balance: $\(self.debitBalance)"
+    }
+    
+    var availableCredit: Int {
+        self.creditLimit + self.creditBalance
+    }
+    
+    var creditBalanceInfo: String {
+        "Available Credit: $\(self.availableCredit)"
+    }
+    
+    // Implement the deposit operation for debit and credit bank accounts
+    
+//    Debit deposit
+    mutating func debitDeposit(_ amount: Int){
+        debitBalance += amount
+        print("Deposited: $\(amount). \(debitBalanceInfo)")
+    }
+    
+    mutating func creditDeposit(_ amount: Int){
+        creditBalance += amount
+        print("Credit $\(amount) \(creditBalanceInfo)")
+        
+        if creditBalance == 0 {
+            print("Paid off Balance")
+        }else if creditBalance > 0 {
+            print("Overpaid credit balance.")
+        }
+    }
+    
+    mutating func debitWithdraw(_ amount: Int){
+        if amount > debitBalance {
+            print("Insufficient Funds to Withdraw $\(amount) \(debitBalanceInfo) ")
+        }else{
+            debitBalance -= amount
+            print("Debit Withdraw: $\(amount). \(debitBalanceInfo)")
+        }
+    }
+    
+    mutating func creditWithdraw(_ amount: Int){
+        if amount > availableCredit {
+            print("Insufficient credit to withdraw $\(amount) \(creditBalanceInfo)")
+        }else {
+            creditBalance -= amount
+            print("Credit Withdraw: $\(amount). \(creditBalanceInfo)")
+        }
+    }
+}
+
+var bankAccount = BankAccount()
+print(bankAccount.debitBalanceInfo)
+bankAccount.debitDeposit(100)
+bankAccount.debitWithdraw(20)
+print(bankAccount.creditBalanceInfo)
+print(bankAccount.debitWithdraw(101))
+print(bankAccount.creditWithdraw(100))
+bankAccount.creditDeposit(50)
+bankAccount.creditDeposit(50)
+bankAccount.creditDeposit(100)
