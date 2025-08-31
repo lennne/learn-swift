@@ -10,7 +10,7 @@ var goldBars = 100
 
 func spendTenGoldBars(from inventory: inout Int, completion: (Int) -> Void){
     inventory -= 10
-    completion(inventory) //calling the completion func, we will decide the definition when passing in the value
+    completion(inventory) //calling the completion func// we will decide the definition when passing in the value
 
 }
 
