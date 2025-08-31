@@ -70,10 +70,15 @@ class BankSystem {
         default: break
         }
     }
-    //Check balance of debit and credit accounts
-    
-    
-    
+//Check balance of debit and credit accounts
+//implement the method to check the balance of debit or credit accounts of the user’s bank account.
+    func checkBalance(bankAccount: BankAccount){
+        switch accountType {
+        case "credit": print(bankAccount.creditBalanceInfo)
+        case "debit": print(bankAccount.debitBalanceInfo)
+        default: break
+        }
+    }
 //    Next, you will declare a switch statement inside the repeat while loop. The switch statement selects the bank account from the
 //        options provided by the interface using the value of the numberPadKey parameter.
     
