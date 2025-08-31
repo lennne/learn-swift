@@ -50,6 +50,30 @@ class BankSystem {
         print("You have opened a \(accountType) bank account")
     }
     
+    //money transfer function
+    func moneyTransfer(_ transferType: String, _ transferAmount: Int, bankAccount: inout BankAccount){
+        //money withdrawal
+        //deposit logic for debit/credit accounts
+        switch transferType {
+        case "withdraw":
+            if accountType == "credit" {
+                bankAccount.creditWithdraw(transferAmount)
+            } else if accountType == "debit" {
+                bankAccount.debitWithdraw(transferAmount)
+            }
+        case "deposit":
+            if accountType == "credit" {
+                bankAccount.creditDeposit(transferAmount)
+            }else if accountType == "debit" {
+                bankAccount.debitDeposit(transferAmount)
+            }
+        default: break
+        }
+    }
+    //Check balance of debit and credit accounts
+    
+    
+    
 //    Next, you will declare a switch statement inside the repeat while loop. The switch statement selects the bank account from the
 //        options provided by the interface using the value of the numberPadKey parameter.
     
@@ -124,6 +148,8 @@ struct BankAccount {
             print("Credit Withdraw: $\(amount). \(creditBalanceInfo)")
         }
     }
+    
+   
 }
 
 var bankAccount = BankAccount()
